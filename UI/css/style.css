@@ -182,8 +182,8 @@ footer{
 	background-size: cover;
 	background-position: left;
 	padding: 1rem;
-	display: flex;
-	flex-direction: column;
+	display: grid;
+	grid-template-columns: 20% 80%;
 	align-items: start;
 	box-shadow: var(--shadow);
 
@@ -217,6 +217,24 @@ footer{
 .dashboard li a:hover:not(.active) {
     background-color: #555;
     color: white;
+}
+
+.dashboard-content-1 h1{
+	text-align: center;
+	font-size: 3rem;
+}
+
+.dashboard-content-1 p{
+	text-align: center;
+	padding: 0.5rem;
+	font-size: 2rem;
+}
+.btn4{
+	background: #004d1a;
+	color: var(--light);
+	padding: 1rem 2.5rem;
+	text-decoration: none;
+	border: 0;
 }
 
 #userProfile {
@@ -298,6 +316,20 @@ footer{
 	.main-nav ul{
 		grid-template-columns: 1fr;
 			}
+			.dashboard{
+				grid-template-columns: 1fr;
+			}
+			.dashboard-content-1 h1{
+			font-size: 1.5rem;
+		}
+		
+		.dashboard-content-1 p{
+			padding: 0.5rem;
+			font-size: 1rem;
+		}
+		.btn4{
+			padding: 0.6rem 1.3rem;
+		}
 }
 
 @media (max-width: 500px){
@@ -307,4 +339,18 @@ footer{
 	.main-nav ul{
 		grid-template-columns: 1fr;
 			}
+			.dashboard{
+				grid-template-columns: 1fr;
+			}
+			.dashboard-content-1 h1{
+			font-size: 1.5rem;
+		}
+		
+		.dashboard-content-1 p{
+			padding: 0.5rem;
+			font-size: 1rem;
+		}
+		.btn4{
+			padding: 0.6rem 1.3rem;
+		}
 	}
