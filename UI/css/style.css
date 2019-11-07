@@ -389,6 +389,27 @@ footer{
 	font-size: 17px;
 	color: #ffffff;
   }
+
+  /* ADMIN CONTAINER CSS */
+  .admin-content{
+	display: grid;
+	grid-template-columns: repeat(3,1fr);
+	grid-gap: 10px;
+	grid-row-gap: 10px;
+}
+.readmore-button{
+	background-color: var(--light);
+	border: 1px solid var(--light);
+	padding: .5rem 8rem;
+	cursor: pointer;
+	border-radius: .25rem;
+	outline: none;
+	margin-top: 10px;
+	font-size: 20px;
+	color: #ffffff;
+	text-align: center;
+	text-decoration: none;
+  }
   /*Media Querries*/
 
 @media (max-width: 700px){
@@ -416,6 +437,12 @@ footer{
 			grid-template-columns: 1fr;
 			grid-column-gap: 10px;
 		  }
+		  .admin-content{
+			grid-template-columns: repeat(2,1fr);
+		}
+		.readmore-button{
+		  padding: .5rem 2rem;
+		}
 }
 @media (max-width: 500px){
 	.showcase h1{
