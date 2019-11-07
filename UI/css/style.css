@@ -389,7 +389,18 @@ footer{
 	font-size: 17px;
 	color: #ffffff;
   }
-
+  .btn-readmore{
+	background-color: var(--light);
+	border: 1px solid var(--light);
+	padding: .5rem 1rem;
+	cursor: pointer;
+	border-radius: .25rem;
+	outline: none;
+	margin-top: 10px;
+	font-size: 17px;
+	color: #ffffff;
+  }
+  
   /* ADMIN CONTAINER CSS */
   .admin-content{
 	display: grid;
@@ -468,6 +479,93 @@ text-decoration: none;
   color: #ffffff;
   text-decoration: none;
 }
+
+/* EDIT CONTAINER */
+.edit-container{
+	display: grid;
+	grid-gap: 20px;
+	}
+.editFlag{
+	min-height: 400px;
+	background-size: cover;
+	background: var(--dark);
+	background-position: left;
+	padding: 3rem;
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	justify-content: center;
+	width: 480px;
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate( -50%, -50%);
+	color: white;
+}
+.editFlag h3{
+	text-align: center;
+	font-size: 2rem;
+	margin-top: -20px;
+	color: var(--light);
+}
+.editFlag input[type=text]{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.editFlag input[type=file]{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.editFlag textarea{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 10em;
+    min-height: 20em;
+    max-height: 60em;
+    font-size: 1em;
+}
+.edit-button {
+  background-color: #004d00;
+  border: 1px solid #004d00;
+  padding: .5rem 5rem;
+  cursor: pointer;
+  border-radius: .25rem;
+  outline: none;
+  margin-top: 10px;
+  font-size: 20px;
+  color: #ffffff;
+  text-decoration: none;
+}
+.cancel-button {
+  background-color:  #ff3333;
+  border: 3px solid  #ff3333;
+  padding: .5rem 5rem;
+  cursor: pointer;
+  border-radius: .25rem;
+  outline: none;
+  margin-top: 10px;
+  font-size: 20px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
   /*Media Querries*/
 
 @media (max-width: 700px){
@@ -518,6 +616,20 @@ text-decoration: none;
 		  padding: .5rem 1rem;
 		  font-size: 15px;
 		}
+		.editFlag{
+			width: 280px;
+		}
+		.editFlag h3{
+			font-size: 1em;
+		}
+		.edit-button{
+			padding: .5rem 1rem;
+			font-size: 17px;
+		}
+		.cancel-button{
+			padding: .5rem 1rem;
+			font-size: 17px;
+		}
 }
 @media (max-width: 500px){
 	.showcase h1{
@@ -566,5 +678,19 @@ text-decoration: none;
 		.admin-button-resolve{
 		  padding: .5rem 1rem;
 		  font-size: 15px;
+		}
+		.editFlag{
+			width: 280px;
+		}
+		.editFlag h3{
+			font-size: 1em;
+		}
+		.edit-button{
+			padding: .5rem 1rem;
+			font-size: 17px;
+		}
+		.cancel-button{
+			padding: .5rem 1rem;
+			font-size: 17px;
 		}
 	}
