@@ -294,6 +294,63 @@ footer{
     background-color: #45a049;
 }
 
+/* INTERVENTION SECTION */
+.intervention{
+    border-radius: 10px;
+    background-color: #f2f2f2;
+    padding: 30px;
+}
+.intervention h3{
+	text-align: center;
+	font-size: 2rem;
+	margin-top: -20px;
+}
+.intervention input[type=text]{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.intervention input[type=file]{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.intervention textarea{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.intervention input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.intervention input[type=submit]:hover {
+    background-color: #45a049;
+}
+
 #userProfile {
 	min-height: 400px;
 	padding: 1rem;
