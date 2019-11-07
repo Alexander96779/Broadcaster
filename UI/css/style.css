@@ -669,7 +669,7 @@ text-decoration: none;
 }
 .cancel-button {
   background-color:  #ff3333;
-  border: 3px solid  #ff3333;
+  border: 1px solid  #ff3333;
   padding: .5rem 5rem;
   cursor: pointer;
   border-radius: .25rem;
