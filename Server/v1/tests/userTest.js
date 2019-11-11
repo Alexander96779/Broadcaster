@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import Chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../app';
@@ -7,7 +8,7 @@ Chai.should();
 
 // eslint-disable-next-line no-undef
 describe('User test', () => {
-  // eslint-disable-next-line no-undef
+  // ===========SIGN UP TESTS==========
   it('should be able to sign up', (done) => {
     const user = {
       firstName: 'Nziyu',
@@ -65,6 +66,52 @@ describe('User test', () => {
       .send(user)
       .end((err, res) => {
         res.body.status.should.be.equal(400);
+      });
+    done();
+  });
+  //   ===========SIGN IN TESTS==========
+  it('should be able to sign in', (done) => {
+    const user = {
+      email: 'espe12@gmail.com',
+      password: 'espe123',
+    };
+    Chai.request(app)
+      .post('/api/v1/signin')
+      .send(user)
+      .end((err, res) => {
+        res.body.status.should.be.equal(200);
+        res.body.should.be.an('object');
+        res.body.message.should.be.equal('User successfully signed in');
+      });
+    done();
+  });
+  it('should not be able to sign in when not signed up', (done) => {
+    const user = {
+      email: 'esperance@gmail.com',
+      password: 'esperance',
+    };
+    Chai.request(app)
+      .post('/api/v1/signin')
+      .send(user)
+      .end((err, res) => {
+        res.body.status.should.be.equal(404);
+        res.body.should.be.an('object');
+        res.body.error.should.be.equal('User not found');
+      });
+    done();
+  });
+  it('should not be able to sign in if passwords do not match', (done) => {
+    const user = {
+      email: 'espe12@gmail.com',
+      password: 'espe',
+    };
+    Chai.request(app)
+      .post('/api/v1/signin')
+      .send(user)
+      .end((err, res) => {
+        res.body.status.should.be.equal(401);
+        res.body.should.be.an('object');
+        res.body.error.should.be.equal('Invalid email or password');
       });
     done();
   });
