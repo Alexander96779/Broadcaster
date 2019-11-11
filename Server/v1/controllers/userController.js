@@ -17,7 +17,7 @@ class userController {
       username,
       userType,
     } = req.body;
-    const checkUser = users.find(u => u.email === email);
+    const checkUser = users.find((u) => u.email === email);
     if (checkUser) {
       return res.status(401).json({
         status: 401,
@@ -46,6 +46,37 @@ class userController {
     return res.status(400).json({
       status: 400,
       error: validationError,
+    });
+  }
+
+  static signin(req, res) {
+    const {
+      email, password,
+    } = req.body;
+    const checkUser = users.find((u) => u.email === email);
+    if (!checkUser) {
+      return res.status(404).json({
+        status: 404,
+        error: 'User not found',
+      });
+    }
+    // eslint-disable-next-line max-len
+    const jstoken = jwt.sign({ id: checkUser.id, email: checkUser.email, userType: checkUser.userType }, process.env.SECRET_KEY);
+    const comparePassword = bcrypt.compareSync(password, checkUser.password);
+    if (!comparePassword) {
+      return res.status(401).json({
+        status: 401,
+        error: 'Invalid email or password',
+      });
+    }
+
+    return res.status(200).json({
+      status: 200,
+      message: 'User successfully signed in',
+      token: jstoken,
+      data: {
+        id: checkUser.id, email: checkUser.email,
+      },
     });
   }
 }
