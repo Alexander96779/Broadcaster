@@ -9,4 +9,5 @@ app.post('/api/v1/signup', userController.signup);
 app.post('/api/v1/signin', userController.signin);
 app.post('/api/v1/entry', auth, entryController.createEntry);
 app.get('/api/v1/entries', auth, entryController.viewAll);
+app.get('/api/v1/entries/:entryId', auth, entryController.viewSpecific);
 export default app;
