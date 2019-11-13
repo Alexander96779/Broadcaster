@@ -68,4 +68,24 @@ describe('Entry test', () => {
       });
     done();
   });
+  // =========== VIEW SPECIFIC ENTRY TEST =========
+  it('should be able to view specific entry', (done) => {
+    Chai.request(app)
+      .get('/api/v1/entries/1')
+      .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ0cmVzb3JjQGdtYWlsLmNvbSIsInVzZXJUeXBlIjoidXNlciIsImlhdCI6MTU3MzU4MDQ0MX0.0BYTtsQHCJboY8CSHYh35M8oelhEexkKtbLmDBvSaqw')
+      .end((err, res) => {
+        res.body.status.should.be.equal(200);
+      });
+    done();
+  });
+  it('should not be able to view specific entry if not exist', (done) => {
+    Chai.request(app)
+      .get('/api/v1/entries/100')
+      .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ0cmVzb3JjQGdtYWlsLmNvbSIsInVzZXJUeXBlIjoidXNlciIsImlhdCI6MTU3MzU4MDQ0MX0.0BYTtsQHCJboY8CSHYh35M8oelhEexkKtbLmDBvSaqw')
+      .end((err, res) => {
+        res.body.status.should.be.equal(400);
+        res.body.error.should.be.equal('Entry not found');
+      });
+    done();
+  });
 });

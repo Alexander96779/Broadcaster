@@ -1,5 +1,6 @@
 import entries from '../models/entries';
 import entryValidation from '../helpers/entryValidation';
+import { parse } from 'querystring';
 
 class entryController {
   static createEntry(req, res) {
@@ -41,6 +42,22 @@ class entryController {
     return res.status(400).json({
       status: 400,
       error: 'It seems like there are no entries yet!',
+    });
+  }
+
+  static viewSpecific(req, res) {
+    const { entryId } = req.params;
+    // eslint-disable-next-line radix
+    const foundEntry = entries.find((entry) => entry.entryId === parseInt(entryId));
+    if (foundEntry) {
+      return res.status(200).json({
+        status: 200,
+        data: foundEntry,
+      });
+    }
+    return res.status(400).json({
+      status: 400,
+      error: 'Entry not found',
     });
   }
 }
