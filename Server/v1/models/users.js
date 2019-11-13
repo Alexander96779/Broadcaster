@@ -23,6 +23,5 @@ const users = [
     username: 'Esperance',
     userType: 'user',
   },
-
 ];
 export default users;
