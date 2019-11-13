@@ -30,6 +30,19 @@ class entryController {
       error: 'Only users are allowed to add entries',
     });
   }
+
+  static viewAll(req, res) {
+    if (entries.length > 0) {
+      return res.status(200).json({
+        status: 200,
+        data: entries,
+      });
+    }
+    return res.status(400).json({
+      status: 400,
+      error: 'It seems like there are no entries yet!',
+    });
+  }
 }
 
 export default entryController;

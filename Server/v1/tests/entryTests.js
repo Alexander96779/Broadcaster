@@ -58,4 +58,14 @@ describe('Entry test', () => {
       });
     done();
   });
+  // ================ VIEW ALL ENTRIES TEST =========
+  it('should be able to view all redflags', (done) => {
+    Chai.request(app)
+      .get('/api/v1/entries')
+      .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJlc3BlMTJAZ21haWwuY29tIiwidXNlclR5cGUiOiJ1c2VyIiwiaWF0IjoxNTczNjQyNjY2fQ.TYNTh-r9_-frQXEPZaB8kZUZTdGiFcYJWDszs33eURA')
+      .end((err, res) => {
+        res.body.status.should.be.equal(200);
+      });
+    done();
+  });
 });
