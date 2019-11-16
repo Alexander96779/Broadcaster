@@ -130,4 +130,24 @@ describe('Entry test', () => {
       });
     done();
   });
+  it('should be able to delete entry if created by', (done) => {
+    Chai.request(app)
+      .delete('/api/v1/entries/1/Delete')
+      .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJlc3BlMTJAZ21haWwuY29tIiwidXNlclR5cGUiOiJ1c2VyIiwiaWF0IjoxNTczODk0ODI3fQ.1ntqUDMMI8TUeK2Bex7c45DVre0DafagUBrawwshce0')
+      .end((err, res) => {
+        res.body.status.should.be.equal(200);
+        res.body.message.should.be.equal('Entry deleted successfully');
+      });
+    done();
+  });
+  it('should be not be able to delete if not created by', (done) => {
+    Chai.request(app)
+      .delete('/api/v1/entries/1/Delete')
+      .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ0cmVzb3JjQGdtYWlsLmNvbSIsInVzZXJUeXBlIjoidXNlciIsImlhdCI6MTU3Mzg5NDI0Mn0.PO7qjq_85fKhi0_GuYKys7joE1FDpPBHO17l8_XlkTQ')
+      .end((err, res) => {
+        res.body.status.should.be.equal(400);
+        res.body.error.should.be.equal('Entry not found');
+      });
+    done();
+  });
 });
