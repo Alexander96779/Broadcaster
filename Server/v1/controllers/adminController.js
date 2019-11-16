@@ -14,5 +14,18 @@ class adminController {
       error: 'Unauthorized route',
     });
   }
+
+  static viewEntries(req, res) {
+    if (req.user.userType === 'admin') {
+      return res.status(200).json({
+        status: 200,
+        data: entries,
+      });
+    }
+    return res.status(400).json({
+      status: 400,
+      error: 'Unauthorized route',
+    });
+  }
 }
 export default adminController;
