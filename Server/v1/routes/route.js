@@ -1,6 +1,7 @@
 import express from 'express';
 import userController from '../controllers/userController';
 import entryController from '../controllers/entryController';
+import adminController from '../controllers/adminController';
 import auth from '../authorization/auth';
 
 const app = express();
@@ -12,4 +13,5 @@ app.get('/api/v1/entries', auth, entryController.viewAll);
 app.get('/api/v1/entries/:entryId', auth, entryController.viewSpecific);
 app.patch('/api/v1/entries/:entryId/Location', auth, entryController.updateEntry);
 app.delete('/api/v1/entries/:entryId/Delete', auth, entryController.deleteEntry);
+app.get('/api/v1/users', auth, adminController.viewUsers);
 export default app;
