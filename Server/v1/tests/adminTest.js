@@ -78,4 +78,34 @@ describe('Admin tests', () => {
       });
     done();
   });
+  it('should be able to reject entry if admin', (done) => {
+    Chai.request(app)
+      .patch('/api/v1/entries/1/Reject')
+      .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJuaXlpYWxleHBAZ21haWwuY29tIiwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTU3MzkwMzEwM30.NNTsFYSVRMUt8d7TCLmEqvuMetKYHijYxT-5fdtt_yg')
+      .end((err, res) => {
+        res.body.status.should.be.equal(200);
+        res.body.message.should.be.equal('Entry rejected');
+      });
+    done();
+  });
+  it('should be able to reject entry if it does not exist', (done) => {
+    Chai.request(app)
+      .patch('/api/v1/entries/10/Reject')
+      .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJuaXlpYWxleHBAZ21haWwuY29tIiwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTU3MzkwMzEwM30.NNTsFYSVRMUt8d7TCLmEqvuMetKYHijYxT-5fdtt_yg')
+      .end((err, res) => {
+        res.body.status.should.be.equal(400);
+        res.body.error.should.be.equal('Entry not found');
+      });
+    done();
+  });
+  it('should not be able to reject entry if not admin', (done) => {
+    Chai.request(app)
+      .patch('/api/v1/entries/1/Reject')
+      .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJlc3BlMTJAZ21haWwuY29tIiwidXNlclR5cGUiOiJ1c2VyIiwiaWF0IjoxNTczNzMzMjg2fQ.0G5C1Unoh2Lx2ufxzfBt92Zk4QuS4ca3AYpvbrkQxNU')
+      .end((err, res) => {
+        res.body.status.should.be.equal(401);
+        res.body.error.should.be.equal('Unauthorized route');
+      });
+    done();
+  });
 });
