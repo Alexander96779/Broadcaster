@@ -6,6 +6,7 @@ import auth from '../authorization/auth';
 
 const app = express();
 
+app.get('/', userController.welcome);
 app.post('/api/v1/signup', userController.signup);
 app.post('/api/v1/signin', userController.signin);
 app.post('/api/v1/entry', auth, entryController.createEntry);
