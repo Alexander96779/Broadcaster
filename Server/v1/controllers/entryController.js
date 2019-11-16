@@ -69,7 +69,7 @@ class entryController {
         if (req.user.id === foundEntry.createdBy) {
           const updatedEntry = {
           // eslint-disable-next-line max-len
-            entryId: foundEntry.entryId, createdOn: foundEntry.createdOn, createdBy: foundEntry.createdBy, title: foundEntry.title, type: foundEntry.type, location: req.body.location, images: foundEntry.images, comment: foundEntry.comment,
+            entryId: foundEntry.entryId, createdOn: foundEntry.createdOn, createdBy: foundEntry.createdBy, title: foundEntry.title, type: foundEntry.type, location: req.body.location, status: foundEntry.status, images: foundEntry.images, comment: foundEntry.comment,
           };
           entries[entries.indexOf(foundEntry)] = updatedEntry;
           return res.status(200).json({

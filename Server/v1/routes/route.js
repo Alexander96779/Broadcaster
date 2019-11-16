@@ -15,4 +15,5 @@ app.patch('/api/v1/entries/:entryId/Location', auth, entryController.updateEntry
 app.delete('/api/v1/entries/:entryId/Delete', auth, entryController.deleteEntry);
 app.get('/api/v1/users', auth, adminController.viewUsers);
 app.get('/api/v1/allEntries', auth, adminController.viewEntries);
+app.patch('/api/v1/entries/:entryId/Accept', auth, adminController.acceptEntry);
 export default app;
