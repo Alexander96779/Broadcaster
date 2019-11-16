@@ -11,4 +11,5 @@ app.post('/api/v1/entry', auth, entryController.createEntry);
 app.get('/api/v1/entries', auth, entryController.viewAll);
 app.get('/api/v1/entries/:entryId', auth, entryController.viewSpecific);
 app.patch('/api/v1/entries/:entryId/Location', auth, entryController.updateEntry);
+app.delete('/api/v1/entries/:entryId/Delete', auth, entryController.deleteEntry);
 export default app;

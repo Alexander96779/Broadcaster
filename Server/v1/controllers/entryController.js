@@ -93,6 +93,24 @@ class entryController {
       error: 'Unauthorized access',
     });
   }
+
+  static deleteEntry(req, res) {
+    const { entryId } = req.params;
+    // eslint-disable-next-line radix
+    const foundEntry = entries.find((e) => e.entryId === parseInt(entryId));
+    const userId = req.user.id;
+    if (foundEntry && foundEntry.createdBy === userId) {
+      entries.splice(entries.indexOf(foundEntry));
+      return res.status(200).json({
+        status: 200,
+        message: 'Entry deleted successfully',
+      });
+    }
+    return res.status(400).json({
+      status: 400,
+      error: 'Entry not found',
+    });
+  }
 }
 
 export default entryController;
