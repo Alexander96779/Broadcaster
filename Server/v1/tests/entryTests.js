@@ -18,7 +18,7 @@ describe('Entry test', () => {
     };
     Chai.request(app)
       .post('/api/v1/entry')
-      .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ0cmVzb3JjQGdtYWlsLmNvbSIsInVzZXJUeXBlIjoidXNlciIsImlhdCI6MTU3MzU4MDQ0MX0.0BYTtsQHCJboY8CSHYh35M8oelhEexkKtbLmDBvSaqw')
+      .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJlc3BlMTJAZ21haWwuY29tIiwidXNlclR5cGUiOiJ1c2VyIiwiaWF0IjoxNTczNzMzMjg2fQ.0G5C1Unoh2Lx2ufxzfBt92Zk4QuS4ca3AYpvbrkQxNU')
       .send(entry)
       .end((err, res) => {
         res.body.status.should.be.equal(201);
@@ -85,6 +85,48 @@ describe('Entry test', () => {
       .end((err, res) => {
         res.body.status.should.be.equal(400);
         res.body.error.should.be.equal('Entry not found');
+      });
+    done();
+  });
+
+  // ============ MODIFY ENTRY TESTS================
+  it('should be able to modify entry if created by and is found', (done) => {
+    Chai.request(app)
+      .patch('/api/v1/entries/1/Location')
+      .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJlc3BlMTJAZ21haWwuY29tIiwidXNlclR5cGUiOiJ1c2VyIiwiaWF0IjoxNTczNzMzMjg2fQ.0G5C1Unoh2Lx2ufxzfBt92Zk4QuS4ca3AYpvbrkQxNU')
+      .end((err, res) => {
+        res.body.status.should.be.equal(200);
+        res.body.message.should.be.equal('Location updated');
+      });
+    done();
+  });
+  it('should not be able to modify entry if not created by', (done) => {
+    Chai.request(app)
+      .patch('/api/v1/entries/1/Location')
+      .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ0cmVzb3JjQGdtYWlsLmNvbSIsInVzZXJUeXBlIjoidXNlciIsImlhdCI6MTU3MzczNzE4OX0.zLS5_4h7Q5Q0GpeRoaDWT3nxldp9r1IC_i4rSk_MIeQ')
+      .end((err, res) => {
+        res.body.status.should.be.equal(401);
+        res.body.error.should.be.equal('Can not update this entry');
+      });
+    done();
+  });
+  it('should not be able to modify entry if it is not found', (done) => {
+    Chai.request(app)
+      .patch('/api/v1/entries/10/Location')
+      .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJlc3BlMTJAZ21haWwuY29tIiwidXNlclR5cGUiOiJ1c2VyIiwiaWF0IjoxNTczNzMzMjg2fQ.0G5C1Unoh2Lx2ufxzfBt92Zk4QuS4ca3AYpvbrkQxNU')
+      .end((err, res) => {
+        res.body.status.should.be.equal(403);
+        res.body.error.should.be.equal('Entry not found');
+      });
+    done();
+  });
+  it('should not be able to modify entry if not user', (done) => {
+    Chai.request(app)
+      .patch('/api/v1/entries/1/Location')
+      .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJuaXlpYWxleHBAZ21haWwuY29tIiwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTU3MzczNTY2M30.h48vb6ME4x2sOvaRfVI8bcx0SNwB20B6M4yInN2dYHc')
+      .end((err, res) => {
+        res.body.status.should.be.equal(400);
+        res.body.error.should.be.equal('Unauthorized access');
       });
     done();
   });

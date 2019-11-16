@@ -8,8 +8,8 @@ const entrySchema = Joi.object().keys({
   type: Joi.string().valid('Redflag', 'Intervention').required(),
   location: Joi.string().required(),
   status: Joi.string().valid('draft').required(),
-  image: Joi.array(),
-  video: Joi.array(),
+  images: Joi.array(),
+  videos: Joi.array(),
 
 });
 

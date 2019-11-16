@@ -1,16 +1,15 @@
 import entries from '../models/entries';
 import entryValidation from '../helpers/entryValidation';
-import { parse } from 'querystring';
 
 class entryController {
   static createEntry(req, res) {
     if (req.user.userType === 'user') {
       const {
-        createdOn, title, type, location, image, video,
+        createdOn, title, type, location, images, videos,
       } = req.body;
       const eId = entries.length + 1;
       const newEntry = entryValidation.validate({
-        entryId: eId, createdOn, createdBy: req.user.id, title, type, location, status: 'draft', image, video,
+        entryId: eId, createdOn, createdBy: req.user.id, title, type, location, status: 'draft', images, videos,
       });
       if (!newEntry.error) {
         entries.push(newEntry.value);
@@ -58,6 +57,40 @@ class entryController {
     return res.status(400).json({
       status: 400,
       error: 'Entry not found',
+    });
+  }
+
+  static updateEntry(req, res) {
+    if (req.user.userType === 'user') {
+      const { entryId } = req.params;
+      // eslint-disable-next-line radix
+      const foundEntry = entries.find((e) => e.entryId === parseInt(entryId));
+      if (foundEntry) {
+        if (req.user.id === foundEntry.createdBy) {
+          const updatedEntry = {
+          // eslint-disable-next-line max-len
+            entryId: foundEntry.entryId, createdOn: foundEntry.createdOn, createdBy: foundEntry.createdBy, title: foundEntry.title, type: foundEntry.type, location: req.body.location, images: foundEntry.images, comment: foundEntry.comment,
+          };
+          entries[entries.indexOf(foundEntry)] = updatedEntry;
+          return res.status(200).json({
+            status: 200,
+            data: updatedEntry,
+            message: 'Location updated',
+          });
+        }
+        return res.status(401).json({
+          status: 401,
+          error: 'Can not update this entry',
+        });
+      }
+      return res.status(403).json({
+        status: 403,
+        error: 'Entry not found',
+      });
+    }
+    return res.status(400).json({
+      status: 400,
+      error: 'Unauthorized access',
     });
   }
 }
