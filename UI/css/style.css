@@ -11,17 +11,23 @@ html{
 	box-sizing: border-box;
 	font-family: Arial, Helvatica, sans-serif;
 	color: var(--dark);
+	padding: 0;
+	margin: 0;
 }
 
 body{
 	background: #ccc;
 	
 	line-height: 1.4;
+	padding: 0;
+	margin: 0;
 }
 
 .wrapper{
 	display: grid;
 	grid-gap: 10px;
+	height: 100vh;
+	
 }
 
 /* NAVBAR */
@@ -63,6 +69,18 @@ body{
 	color: var(--dark);
 }
 
+.main-nav-1{
+	background: var(--dark);
+	height: 100%;
+}
+.main-nav-1 h1{
+	color: var(--light);
+	padding-left: 1rem;
+}
+.main-nav-1 a{
+	text-decoration: none;
+	color: var(--primary);
+}
 /* Top Container*/
 
 .top-container {
@@ -169,14 +187,16 @@ footer{
 .btn1{
 	width: 100%;
 	background: none;
-	border: 2px solid #4caf50;
+	border: 1px solid #4caf50;
 	color: white;
 	font-size: 20px;
 	cursor: pointer;
 	margin: 12px 0;
 	padding: 0.6rem 1.3rem;
 }
-
+.login-box input[type=submit]:hover {
+    background-color: #45a049;
+}
 .dashboard{
 	min-height: 450px;
 	background-size: cover;
@@ -191,10 +211,13 @@ footer{
 .dashboard ul {
     list-style-type: none;
     margin: 0;
-    padding: 0;
-    width: 150px;
+    padding: 1rem;
+    width: 200px;
     height: 60%;
-    overflow: auto;
+	overflow: auto;
+	justify-content: center;
+	align-items: center;
+	position: relative;
 }
 
 .dashboard li a {
@@ -225,9 +248,10 @@ footer{
 }
 
 .dashboard-content-1 p{
-	text-align: center;
+	text-align: left;
 	padding: 0.5rem;
-	font-size: 2rem;
+	font-size: 1.8rem;
+	margin-left: 30px;
 }
 .btn4{
 	background: #004d1a;
@@ -241,7 +265,8 @@ footer{
 .red-flag{
     border-radius: 10px;
     background-color: #f2f2f2;
-    padding: 30px;
+	padding: 30px;
+	margin-left: 30px;
 }
 .red-flag h3{
 	text-align: center;
@@ -280,7 +305,7 @@ footer{
 
 .red-flag input[type=submit] {
     width: 100%;
-    background-color: #4CAF50;
+    background-color: #ff1a1a;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -291,14 +316,15 @@ footer{
 }
 
 .red-flag input[type=submit]:hover {
-    background-color: #45a049;
+    background-color: #b30000;
 }
 
 /* INTERVENTION SECTION */
 .intervention{
     border-radius: 10px;
     background-color: #f2f2f2;
-    padding: 30px;
+	padding: 30px;
+	margin-left: 30px;
 }
 .intervention h3{
 	text-align: center;
@@ -351,8 +377,10 @@ footer{
     background-color: #45a049;
 }
 
+/* USER PROFILE ON DASHBOARD */
+
 #userProfile {
-	min-height: 400px;
+	min-height: 100px;
 	padding: 1rem;
 	display: flex;
 	flex-direction: column;
@@ -360,21 +388,65 @@ footer{
 	justify-content: center;
 	box-shadow: var(--shadow);
 	position: relative;
+	margin-bottom: 10px;
 }
 
+
 #userProfile h3{
-	font-size: 2.5em;
+	font-size: 1.5em;
 	color: #3C4858;
 	text-align: center;
-	margin-top: -10px;
+	margin-top: 5px;
 }
 
 #userProfile img {
-	border-radius: 70px;
-	height: 250px;
-	margin-top: -20px;
+	border-radius: 10px;
+	height: 200px;
+	margin-top: 5px;
+}
+.edit-button{
+	background-color: #3da2f5;
+	border: 1px solid #3da2f5;
+	padding: .5rem 1rem;
+	cursor: pointer;
+	border-radius: .25rem;
+	outline: none;
+	margin-top: -10px;
+	font-size: 15px;
+	color: #ffffff;
+  }
+  
+  .edit-button:hover{
+	background-color:  #053861;
+	border: 1px solid  #053861;
+  }
+/* USER EDIT PROFILE */
+
+#userProfile-1 {
+	min-height: 100px;
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	box-shadow: var(--shadow);
+	position: relative;
+	margin-bottom: 10px;
 }
 
+
+#userProfile-1 h3{
+	font-size: 1.5em;
+	color: #3C4858;
+	text-align: center;
+	margin-top: 5px;
+}
+
+#userProfile-1 img {
+	border-radius: 10px;
+	height: 300px;
+	margin-top: 5px;
+}
 .table-content-2{
 	border-collapse: collapse;
 	width: 100%;
@@ -383,7 +455,8 @@ footer{
 
 .table-content-2 td{
 	text-align: left;
-	padding: 10px;
+	padding: 3px;
+	font-size: 12px;
 }
 
 .table-content-2 tr:nth-child(even){
@@ -398,10 +471,10 @@ footer{
 	border-bottom: 2px solid #256188;
 }
 
-.edit-button{
-  background-color: #2196F3;
-  border: 1px solid #2196F3;
-  padding: .5rem 1rem;
+.edit-button-1{
+  background-color: #3da2f5;
+  border: 1px solid #3da2f5;
+  padding: .5rem 2rem;
   cursor: pointer;
   border-radius: .25rem;
   outline: none;
@@ -410,6 +483,10 @@ footer{
   color: #ffffff;
 }
 
+.edit-button:hover{
+  background-color:  #053861;
+  border: 1px solid  #053861;
+}
 .change-button{
   background-color: #f39300;
   border: 1px solid #f39300;
@@ -426,9 +503,10 @@ footer{
 
 .redflag-display{
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+	grid-template-columns: repeat(3, 1fr);
 	grid-column-gap: 20px;
 	grid-row-gap: 10px;
+	margin-left: 30px;
   }
   
   .redflag-display-1 {
@@ -442,7 +520,7 @@ footer{
 	max-height: 280px;
 	background-position: center;
 	background-color: #ccc;
-	height: 280px;
+	height: 180px;
   }
   
   .story-image img {
@@ -466,7 +544,7 @@ footer{
   
   .story-content a{
 	  text-decoration: none;
-	  color: var(--dark);
+	  color: var(--light);
   }
   .story-button {
 	background-color: transparent;
@@ -482,19 +560,24 @@ footer{
   }
   
   .story-button-edit {
+	background-color: #ffb84d;
+	border: 1px solid #ffb84d;
+	padding: .5rem 1rem;
+	cursor: pointer;
+	border-radius: .25rem;
+	outline: none;
+	margin-top: 10px;
+	font-size: 17px;
+	color: #ffffff;
+  }
+
+  .story-button-edit:hover{
 	background-color: #f39300;
 	border: 1px solid #f39300;
-	padding: .5rem 1rem;
-	cursor: pointer;
-	border-radius: .25rem;
-	outline: none;
-	margin-top: 10px;
-	font-size: 17px;
-	color: #ffffff;
   }
   .story-button-delete {
-	background-color: #BD2C00;
-	border: 1px solid #BD2C00;
+	background-color:#ff6333;
+	border: 1px solid #ff6333;
 	padding: .5rem 1rem;
 	cursor: pointer;
 	border-radius: .25rem;
@@ -503,9 +586,13 @@ footer{
 	font-size: 17px;
 	color: #ffffff;
   }
+  .story-button-delete:hover {
+	background-color: #BD2C00;
+	border: 1px solid #BD2C00;
+  }
   .btn-readmore{
-	background-color: var(--light);
-	border: 1px solid var(--light);
+	background-color: #8c8c8c;
+	border: 1px solid #8c8c8c;
 	padding: .5rem 1rem;
 	cursor: pointer;
 	border-radius: .25rem;
@@ -513,26 +600,30 @@ footer{
 	margin-top: 10px;
 	font-size: 17px;
 	color: #ffffff;
+  }
+  .btn-readmore:hover{
+	background-color: var(--dark);
+	border: 1px solid var(--dark);
   }
   
   /* ADMIN CONTAINER CSS */
   .admin-content{
 	display: grid;
-	grid-template-columns: repeat(3,1fr);
+	grid-template-columns: repeat(4,1fr);
 	grid-gap: 10px;
 	grid-row-gap: 10px;
 }
 .readmore-button{
-	background-color: var(--light);
-	border: 1px solid var(--light);
-	padding: .5rem 8rem;
+	background-color: var(--dark);
+	border: 1px solid var(--dark);
+	padding: .5rem 6rem;
 	cursor: pointer;
 	border-radius: .25rem;
 	outline: none;
 	margin-top: 10px;
-	font-size: 20px;
+	font-size: 15px;
 	color: #ffffff;
-	text-align: center;
+	text-align: left;
 	text-decoration: none;
   }
   .admin-readmore{
@@ -551,7 +642,7 @@ footer{
 	left: 50%;
 	transform: translate( -50%, -50%);
 	color: white;
-	border-radius: 70px;
+	border-radius: 10px;
 }
 .admin-story a{
 text-decoration: none;
@@ -655,7 +746,7 @@ text-decoration: none;
     max-height: 60em;
     font-size: 1em;
 }
-.edit-button {
+.update-button {
   background-color: #004d00;
   border: 1px solid #004d00;
   padding: .5rem 5rem;
@@ -666,6 +757,9 @@ text-decoration: none;
   font-size: 20px;
   color: #ffffff;
   text-decoration: none;
+}
+.edit-button :hover{
+	background-color: #004d00;
 }
 .cancel-button {
   background-color:  #ff3333;
@@ -697,7 +791,7 @@ text-decoration: none;
 	left: 50%;
 	transform: translate( -50%, -50%);
 	color: white;
-	border-radius: 70px;
+	border-radius: 10px;
 }
 .readmore img{
 	height: 250px;
@@ -712,9 +806,12 @@ text-decoration: none;
 }
   /*Media Querries*/
 
-@media (max-width: 700px){
+@media (max-width: 768px){
 	.showcase h1{
 		font-size: 2.5rem;
+	}
+	.btn{
+		padding: 0.3rem 0.7rem;
 	}
 	.main-nav ul{
 		grid-template-columns: 1fr;
@@ -779,14 +876,29 @@ text-decoration: none;
 		}
 		.readmore{
 			width: 280px;
-		} 
+		}
+		.main-nav{
+			margin-bottom: 20rem;
+		}
+		footer{
+			margin-top: 20rem;
+			margin-bottom: 0.5rem;
+			height: 50%;
+			font-size: 20px;
+		}
 }
-@media (max-width: 500px){
+
+
+@media (max-width: 1280px){
 	.showcase h1{
 		font-size: 2.5rem;
 	}
+	.btn{
+		padding: 0.3rem 0.7rem;
+	}
 	.main-nav ul{
 		grid-template-columns: 1fr;
+		font-size: 17px;
 			}
 			.dashboard{
 				grid-template-columns: 1fr;
@@ -797,7 +909,7 @@ text-decoration: none;
 		
 		.dashboard-content-1 p{
 			padding: 0.5rem;
-			font-size: 1rem;
+			font-size: 2rem;
 		}
 		.btn4{
 			padding: 0.6rem 1.3rem;
@@ -846,4 +958,17 @@ text-decoration: none;
 		.readmore{
 			width: 280px;
 		} 
+		.main-nav{
+			margin-bottom: 20rem;
+		}
+		footer{
+			margin-top: 20rem;
+			margin-bottom: 0.5rem;
+			height: 50%;
+			font-size: 20px;
+		}	
 	}
+
+
+	
+	

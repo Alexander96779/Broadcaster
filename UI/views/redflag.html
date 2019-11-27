@@ -7,23 +7,24 @@
 <body>
 	<div class="wrapper">
 		<!-- Navbar -->
-		<nav class="main-nav">
-			<h1>Broadcaster</h1>
-			<ul class="links">
-				<li><a href="dashboard.html">Home</a></li>
-				<li><a href="profile.html">Profile</a></li>
-				<li><a href="signin.html">Sign Out</a></li>
-			</ul>
-		</nav>
+		<nav class="main-nav-1">
+				<h1><a href="dashboard.html">Broadcaster</a></h1>
+			</nav>
 		<!-- VERTICAL NAVBAR -->
 		<section class="top-container">
 			<div class="dashboard">
 				<div class="dashboard-content">
+						<div id="userProfile">
+								<img src="../img/person4.jpg">
+								<h3>Alexander Prince</h3>
+								<button class="edit-button">Edit Profile</button>
+								</div>
 				<ul>
   					<li><a href="redflag.html"  class="active">Red flag</a></li>
   					<li><a href="intervention.html">Intervention</a></li>
   					<li><a href="viewRedflag.html">View Red flags</a></li>
-  					<li><a href="viewInterventions.html">View Interventions</a></li>
+					  <li><a href="viewInterventions.html">View Interventions</a></li>
+					  <li><a href="signin.html">Sign Out</a></li>
 				</ul>
 				</div>
 					<!-- RED FLAG SECTION -->
@@ -31,13 +32,13 @@
 				<h3>Create a red flag record</h3>
 		<form>
 		<label for="title">Title</label>
-		<input type="text" name="title">
+		<input type="text" name="title" placeholder="Your red flag title">
 		<label for="creator">Your Email</label>
-		<input type="text" name="email">
+		<input type="text" name="email" placeholder="Your Email">
 		<label for="files">Add Image or Video</label>
 		<input type="file" name="file" multiple="multiple">
 		<label for="location">Location</label>
-		<input type="text" name="location">
+		<input type="text" name="location" placeholder="Your location">
 		<label for="body">Body</label>
 		<textarea></textarea>
 		<input type="submit" value="Create red-flag" name="submit">
