@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import Chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../app';
@@ -6,7 +5,6 @@ import app from '../../app';
 Chai.use(chaiHttp);
 Chai.should();
 
-// eslint-disable-next-line no-undef
 describe('Entry test', () => {
   // ====== CREATE REDFLAG TEST =====
   it('should be able to create redflag record if user', (done) => {

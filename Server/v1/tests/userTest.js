@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import Chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../app';
@@ -6,7 +5,6 @@ import app from '../../app';
 Chai.use(chaiHttp);
 Chai.should();
 
-// eslint-disable-next-line no-undef
 describe('User test', () => {
   // ===========SIGN UP TESTS==========
   it('should be able to sign up', (done) => {
@@ -29,7 +27,6 @@ describe('User test', () => {
       });
     done();
   });
-  // eslint-disable-next-line no-undef
   it('should be able to check if email exists', (done) => {
     const user = {
       firstName: 'Nziyu',
@@ -50,7 +47,6 @@ describe('User test', () => {
       });
     done();
   });
-  // eslint-disable-next-line no-undef
   it('should not be able to sign up for missing info', (done) => {
     const user = {
       lastName: 'Jean Paul',
