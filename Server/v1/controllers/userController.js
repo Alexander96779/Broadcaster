@@ -32,7 +32,7 @@ class userController {
       });
     }
     const idNo = users.length + 1;
-    const jstoken = jwt.sign({ id: idNo, email, userType }, process.env.SECRET_KEY);
+    const jstoken = jwt.sign({ id: idNo, userType }, process.env.SECRET_KEY);
     const hashedPsw = bcrypt.hashSync(password, 10);
     const newUser = userValidation.validate({
       token: jstoken, id: idNo, firstName, lastName, email, password: hashedPsw, gender, phoneNumber, username, userType,
@@ -44,7 +44,7 @@ class userController {
         message: 'User created successfully',
         token: jstoken,
         data: {
-          id: idNo, firstName, lastName, email, gender, phoneNumber, username, userType,
+          firstName, lastName, email, gender, phoneNumber, username, userType,
         },
       });
     }
@@ -66,7 +66,7 @@ class userController {
         error: 'User not found',
       });
     }
-    const jstoken = jwt.sign({ id: checkUser.id, email: checkUser.email, userType: checkUser.userType }, process.env.SECRET_KEY);
+    const jstoken = jwt.sign({ id: checkUser.id, userType: checkUser.userType }, process.env.SECRET_KEY, { expiresIn: '1h' });
     const comparePassword = bcrypt.compareSync(password, checkUser.password);
     if (!comparePassword) {
       return res.status(401).json({
@@ -80,7 +80,7 @@ class userController {
       message: 'User successfully signed in',
       token: jstoken,
       data: {
-        id: checkUser.id, email: checkUser.email,
+        email: checkUser.email, firstName: checkUser.firstName, lastName: checkUser.lastName,
       },
     });
   }
