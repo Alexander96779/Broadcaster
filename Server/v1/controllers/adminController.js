@@ -3,7 +3,8 @@ import entries from '../models/entries';
 
 class adminController {
   static viewUsers(req, res) {
-    if (req.user.userType === 'admin') {
+    const { userType } = req.user;
+    if (userType === 'admin') {
       return res.status(200).json({
         status: 200,
         data: users,
@@ -16,7 +17,8 @@ class adminController {
   }
 
   static viewEntries(req, res) {
-    if (req.user.userType === 'admin') {
+    const { userType } = req.user;
+    if (userType === 'admin') {
       return res.status(200).json({
         status: 200,
         data: entries,
@@ -29,9 +31,9 @@ class adminController {
   }
 
   static acceptEntry(req, res) {
-    if (req.user.userType === 'admin') {
+    const { userType } = req.user;
+    if (userType === 'admin') {
       const { entryId } = req.params;
-      // eslint-disable-next-line radix
       const foundEntry = entries.find((e) => e.entryId === parseInt(entryId));
       if (foundEntry) {
         const upEntry = {
@@ -56,9 +58,9 @@ class adminController {
   }
 
   static rejectEntry(req, res) {
-    if (req.user.userType === 'admin') {
+    const { userType } = req.user;
+    if (userType === 'admin') {
       const { entryId } = req.params;
-      // eslint-disable-next-line radix
       const foundEntry = entries.find((e) => e.entryId === parseInt(entryId));
       if (foundEntry) {
         const upEntry = {
@@ -83,9 +85,9 @@ class adminController {
   }
 
   static resolveEntry(req, res) {
-    if (req.user.userType === 'admin') {
+    const { userType } = req.user;
+    if (userType === 'admin') {
       const { entryId } = req.params;
-      // eslint-disable-next-line radix
       const foundEntry = entries.find((e) => e.entryId === parseInt(entryId));
       if (foundEntry) {
         const upEntry = {

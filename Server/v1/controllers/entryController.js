@@ -3,7 +3,8 @@ import entryValidation from '../helpers/entryValidation';
 
 class entryController {
   static createEntry(req, res) {
-    if (req.user.userType === 'user') {
+    const { userType } = req.user;
+    if (userType === 'user') {
       const {
         createdOn, title, type, location, images, videos,
       } = req.body;
@@ -46,7 +47,6 @@ class entryController {
 
   static viewSpecific(req, res) {
     const { entryId } = req.params;
-    // eslint-disable-next-line radix
     const foundEntry = entries.find((entry) => entry.entryId === parseInt(entryId));
     if (foundEntry) {
       return res.status(200).json({
@@ -61,14 +61,13 @@ class entryController {
   }
 
   static updateEntry(req, res) {
-    if (req.user.userType === 'user') {
+    const { userType } = req.user;
+    if (userType === 'user') {
       const { entryId } = req.params;
-      // eslint-disable-next-line radix
       const foundEntry = entries.find((e) => e.entryId === parseInt(entryId));
       if (foundEntry) {
         if (req.user.id === foundEntry.createdBy) {
           const updatedEntry = {
-          // eslint-disable-next-line max-len
             entryId: foundEntry.entryId, createdOn: foundEntry.createdOn, createdBy: foundEntry.createdBy, title: foundEntry.title, type: foundEntry.type, location: req.body.location, status: foundEntry.status, images: foundEntry.images, comment: foundEntry.comment,
           };
           entries[entries.indexOf(foundEntry)] = updatedEntry;
@@ -96,7 +95,6 @@ class entryController {
 
   static deleteEntry(req, res) {
     const { entryId } = req.params;
-    // eslint-disable-next-line radix
     const foundEntry = entries.find((e) => e.entryId === parseInt(entryId));
     const userId = req.user.id;
     if (foundEntry && foundEntry.createdBy === userId) {
