@@ -1,8 +1,4 @@
-[![Build Status](https://travis-ci.org/Alexander96779/Broadcaster.svg?branch=develop)](https://travis-ci.org/Alexander96779/Broadcaster)
-
-[![Coverage Status](https://coveralls.io/repos/github/Alexander96779/Broadcaster/badge.svg?branch=develop)](https://coveralls.io/github/Alexander96779/Broadcaster?branch=develop)
-
-[![Maintainability](https://api.codeclimate.com/v1/badges/8b53731a45e4dee5b10c/maintainability)](https://codeclimate.com/github/Alexander96779/Broadcaster/maintainability)
+[![Build Status](https://travis-ci.org/Alexander96779/Broadcaster.svg?branch=develop)](https://travis-ci.org/Alexander96779/Broadcaster)[![Coverage Status](https://coveralls.io/repos/github/Alexander96779/Broadcaster/badge.svg?branch=bg-eslintconfig-170002851)](https://coveralls.io/github/Alexander96779/Broadcaster?branch=bg-eslintconfig-170002851)[![Maintainability](https://api.codeclimate.com/v1/badges/8b53731a45e4dee5b10c/maintainability)](https://codeclimate.com/github/Alexander96779/Broadcaster/maintainability)
 
 # Broadcaster
  Broadcaster enables any/every citizen to bring any form of corruption to the notice of appropriate authorities and the general public. Users can also report on things that need government intervention
@@ -24,16 +20,18 @@ Admin:
 -Accept or reject record page
 
 # API Endpoints
-POST /auth/signup
-POST /auth/signin
-GET /redflags
-GET /redflags/red-flag-id
-POST /auth/redflag
-PATCH /auth/redflag/red-flag-id/Location
-PATCH /auth/redflag/red-flag-id/comment
-PATCH /auth/redflag/red-flag-id/Accept
-PATCH /auth/redflag/red-flag-id/Reject
-DELETE /auth/redflag/red-flag-id
+| Request Routes                         | Methods   | Description 
+| ---------------------                  | --------- | ------------------
+| /api/v1/auth/signup                    |   POST    | allows users to sign up
+| /api/v1/auth/signin                    |   POST    | allows users to sign in
+| /api/v1/auth/redflags                  |   GET     | view all red flags records
+| /api/v1/auth/redflags/red-flag-id      |   GET     | view specific red flag
+| /api/v1/auth/redflag                   |   POST    | create red flag
+| /api/v1/auth/redflag/redflagid/Location|   PATCH   | update location
+| /api/v1/auth/redflag/redflagid/comment |   PATCH   | update comment on red flag
+| /api/v1/auth/redflag/red-flag-id/Accept|   PATCH   | admin can accept entry
+| /api/v1/auth/redflag/red-flag-id/Reject|   PATCH   | admin can reject entry
+| /api/v1/auth/redflag/red-flag-id       |   DELETE  | delete red flag record
 
 # Getting started
 1. Clone this repo to your local machine if you are using windows, get it [here](https://github.com/Alexander96779/Broadcaster)

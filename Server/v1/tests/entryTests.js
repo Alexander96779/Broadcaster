@@ -81,7 +81,7 @@ describe('Entry test', () => {
       .get('/api/v1/entries/100')
       .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ0cmVzb3JjQGdtYWlsLmNvbSIsInVzZXJUeXBlIjoidXNlciIsImlhdCI6MTU3MzU4MDQ0MX0.0BYTtsQHCJboY8CSHYh35M8oelhEexkKtbLmDBvSaqw')
       .end((err, res) => {
-        res.body.status.should.be.equal(400);
+        res.body.status.should.be.equal(404);
         res.body.error.should.be.equal('Entry not found');
       });
     done();
@@ -113,7 +113,7 @@ describe('Entry test', () => {
       .patch('/api/v1/entries/10/Location')
       .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJlc3BlMTJAZ21haWwuY29tIiwidXNlclR5cGUiOiJ1c2VyIiwiaWF0IjoxNTczNzMzMjg2fQ.0G5C1Unoh2Lx2ufxzfBt92Zk4QuS4ca3AYpvbrkQxNU')
       .end((err, res) => {
-        res.body.status.should.be.equal(403);
+        res.body.status.should.be.equal(404);
         res.body.error.should.be.equal('Entry not found');
       });
     done();
@@ -123,8 +123,8 @@ describe('Entry test', () => {
       .patch('/api/v1/entries/1/Location')
       .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJuaXlpYWxleHBAZ21haWwuY29tIiwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTU3MzczNTY2M30.h48vb6ME4x2sOvaRfVI8bcx0SNwB20B6M4yInN2dYHc')
       .end((err, res) => {
-        res.body.status.should.be.equal(400);
-        res.body.error.should.be.equal('Unauthorized access');
+        res.body.status.should.be.equal(403);
+        res.body.error.should.be.equal('Forbidden route');
       });
     done();
   });
@@ -143,7 +143,7 @@ describe('Entry test', () => {
       .delete('/api/v1/entries/1/Delete')
       .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ0cmVzb3JjQGdtYWlsLmNvbSIsInVzZXJUeXBlIjoidXNlciIsImlhdCI6MTU3Mzg5NDI0Mn0.PO7qjq_85fKhi0_GuYKys7joE1FDpPBHO17l8_XlkTQ')
       .end((err, res) => {
-        res.body.status.should.be.equal(400);
+        res.body.status.should.be.equal(404);
         res.body.error.should.be.equal('Entry not found');
       });
     done();

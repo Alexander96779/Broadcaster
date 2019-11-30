@@ -16,7 +16,9 @@ class entryController {
         entries.push(newEntry.value);
         return res.status(201).json({
           status: 201,
-          data: newEntry,
+          data: {
+            entryId: eId, createdOn, createdBy: req.user.id, title, type, location, status: 'draft',
+          },
           message: 'Redflag created successfully',
         });
       }
@@ -54,8 +56,8 @@ class entryController {
         data: foundEntry,
       });
     }
-    return res.status(400).json({
-      status: 400,
+    return res.status(404).json({
+      status: 404,
       error: 'Entry not found',
     });
   }
@@ -82,14 +84,14 @@ class entryController {
           error: 'Can not update this entry',
         });
       }
-      return res.status(403).json({
-        status: 403,
+      return res.status(404).json({
+        status: 404,
         error: 'Entry not found',
       });
     }
-    return res.status(400).json({
-      status: 400,
-      error: 'Unauthorized access',
+    return res.status(403).json({
+      status: 403,
+      error: 'Forbidden route',
     });
   }
 
@@ -104,8 +106,8 @@ class entryController {
         message: 'Entry deleted successfully',
       });
     }
-    return res.status(400).json({
-      status: 400,
+    return res.status(404).json({
+      status: 404,
       error: 'Entry not found',
     });
   }

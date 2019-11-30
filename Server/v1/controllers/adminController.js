@@ -10,8 +10,8 @@ class adminController {
         data: users,
       });
     }
-    return res.status(400).json({
-      status: 400,
+    return res.status(401).json({
+      status: 401,
       error: 'Unauthorized route',
     });
   }
@@ -24,8 +24,8 @@ class adminController {
         data: entries,
       });
     }
-    return res.status(400).json({
-      status: 400,
+    return res.status(401).json({
+      status: 401,
       error: 'Unauthorized route',
     });
   }
@@ -46,8 +46,8 @@ class adminController {
           data: upEntry,
         });
       }
-      return res.status(400).json({
-        status: 400,
+      return res.status(404).json({
+        status: 404,
         error: 'Entry not found',
       });
     }
@@ -73,8 +73,8 @@ class adminController {
           data: upEntry,
         });
       }
-      return res.status(400).json({
-        status: 400,
+      return res.status(404).json({
+        status: 404,
         error: 'Entry not found',
       });
     }
@@ -100,8 +100,8 @@ class adminController {
           data: upEntry,
         });
       }
-      return res.status(400).json({
-        status: 400,
+      return res.status(404).json({
+        status: 404,
         error: 'Entry not found',
       });
     }
