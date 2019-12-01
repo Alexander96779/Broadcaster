@@ -7,7 +7,9 @@
     "dev": "nodemon --require @babel/register ./Server/app.js",
     "start": "node --require @babel/register ./Server/app.js",
     "test": "nyc --reporter=html --reporter=text mocha --require @babel/polyfill --require @babel/register --timeout 10000 --exit  ./Server/v1/tests/*.js",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls "
+    "coveralls": "nyc report --reporter=text-lcov | coveralls ",
+    "createTables": "node --require @babel/polyfill --require @babel/register Server/v2/models/createTable.js",
+    "deleteTables": "node --require @babel/polyfill --require @babel/register Server/v2/models/deleteTables.js"
   },
   "repository": {
     "type": "git",
@@ -29,11 +31,12 @@
     "@hapi/joi": "^16.1.7",
     "bcrypt": "^3.0.6",
     "bcrypt-nodejs": "0.0.3",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "chai": "^4.2.0",
-    "chai-http": "^4.3.0"
+    "pg": "^7.14.0"
   },
   "devDependencies": {
     "coveralls": "^3.0.9",
