@@ -9,7 +9,8 @@
         "max-len": "off",
         "radix": "off",
         "no-undef":"off",
-        "consistent-return":"off"
+        "consistent-return":"off",
+        "import/no-mutable-exports": "off"
         
     }
 }
