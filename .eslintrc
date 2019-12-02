@@ -11,7 +11,8 @@
         "no-undef":"off",
         "consistent-return":"off",
         "import/no-mutable-exports": "off",
-        "object-curly-newline":"off"
+        "object-curly-newline":"off",
+        "arrow-parens":"off"
         
     }
 }

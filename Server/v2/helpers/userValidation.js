@@ -1,6 +1,6 @@
 import joi from '@hapi/joi';
 
-const validation = (user) => {
+const validation = user => {
   const Schema = joi.object({
     firstname: joi.string().required(),
     lastname: joi.string().required(),

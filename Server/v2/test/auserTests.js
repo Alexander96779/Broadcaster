@@ -1,12 +1,10 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import uuid from 'uuid/v1';
 import app from '../../app';
 
 chai.use(chaiHttp);
 chai.should();
 const user1 = {
-  userid: uuid(),
   firstname: 'Nyampinga',
   lastname: 'Espe',
   email: 'nyaespe@gmail.com',
@@ -44,7 +42,7 @@ describe('User tests', () => {
       .post('/api/v2/signup')
       .send(user1)
       .end((err, res) => {
-        res.body.status.should.be.equal(401);
+        res.body.status.should.be.equal(409);
         res.body.error.should.be.equal('Email already exists!');
       });
     done();
@@ -55,6 +53,37 @@ describe('User tests', () => {
       .send(user2)
       .end((err, res) => {
         res.body.status.should.be.equal(400);
+      });
+    done();
+  });
+  // =================== SIGN IN TESTS ============
+  it('should be able to sign in If has an account', (done) => {
+    chai.request(app)
+      .post('/api/v2/signin')
+      .send({ email: user1.email, password: user1.password })
+      .end((err, res) => {
+        res.body.status.should.be.equal(200);
+        res.body.message.should.be.equal('User is successfully signed in');
+      });
+    done();
+  });
+  it('should not be able to sign in if wrong email or password', (done) => {
+    chai.request(app)
+      .post('/api/v2/signin')
+      .send({ email: user1.email, password: 'shvsdhjds' })
+      .end((err, res) => {
+        res.body.status.should.be.equal(400);
+        res.body.error.should.be.equal('Wrong email or password');
+      });
+    done();
+  });
+  it('should not be able to sign in if account does not exist', (done) => {
+    chai.request(app)
+      .post('/api/v2/signin')
+      .send({ email: user2.email, password: user2.password })
+      .end((err, res) => {
+        res.body.status.should.be.equal(404);
+        res.body.error.should.be.equal('User not found, create account first');
       });
     done();
   });
