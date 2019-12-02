@@ -1,6 +1,6 @@
 import auth from '../helpers/authanticate';
 
-const users = (req) => {
+const users = req => {
   const user = {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
