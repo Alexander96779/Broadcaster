@@ -7,7 +7,7 @@ let pool;
 
 if (process.env.NODE_ENV === 'testing') {
   pool = new Pool({
-    connectionString: process.env.TEST,
+    connectionString: process.env.TEST_URL,
   });
 } else {
   pool = new Pool({
