@@ -10,7 +10,8 @@
         "radix": "off",
         "no-undef":"off",
         "consistent-return":"off",
-        "import/no-mutable-exports": "off"
+        "import/no-mutable-exports": "off",
+        "object-curly-newline":"off"
         
     }
 }

@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon --require @babel/register ./Server/app.js",
-    "start": "node --require @babel/register ./Server/app.js",
-    "test": "nyc --reporter=html --reporter=text mocha --require @babel/polyfill --require @babel/register --timeout 10000 --exit  ./Server/v1/tests/*.js",
+    "start": "node --require @babel/polyfill --require @babel/register ./Server/app.js",
+    "test": "cross-env NODE_ENV=testing npm run deleteTables && cross-env NODE_ENV=testing npm run createTables && cross-env NODE_ENV=testing nyc --reporter=html --reporter=text --require @babel/polyfill --require @babel/register  mocha Server/v2/test/auserTests.js --timeout 10000 --exit",
     "coveralls": "nyc report --reporter=text-lcov | coveralls ",
     "createTables": "node --require @babel/polyfill --require @babel/register Server/v2/models/createTable.js",
     "deleteTables": "node --require @babel/polyfill --require @babel/register Server/v2/models/deleteTables.js"
@@ -33,10 +33,12 @@
     "bcrypt-nodejs": "0.0.3",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
+    "cross-env": "^6.0.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "pg": "^7.14.0"
+    "pg": "^7.14.0",
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "coveralls": "^3.0.9",
