@@ -11,4 +11,5 @@ app.post('/api/v2/signup', validation.userSignup, userController.signup);
 app.post('/api/v2/signin', validation.userSignin, userController.signin);
 app.post('/api/v2/incident', auth, validation.incidentVal, incidentController.createIncident);
 app.get('/api/v2/red-flags', auth, incidentController.viewAll);
+app.get('/api/v2/red-flag/:incidentid', auth, incidentController.viewSpecific);
 export default app;

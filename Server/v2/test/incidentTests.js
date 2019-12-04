@@ -75,4 +75,25 @@ describe('Incident tests', () => {
       });
     done();
   });
+  // ======== VIEW SPECIFIC TESTS ==============
+  it('should be able to view specific incident', (done) => {
+    chai.request(app)
+      .get('/api/v2/red-flag/1')
+      .set('token', userToken)
+      .end((err, res) => {
+        res.body.status.should.be.equal(200);
+        res.body.message.should.be.equal('Article found');
+      });
+    done();
+  });
+  it('should not be able to view specific if not found', (done) => {
+    chai.request(app)
+      .get('/api/v2/red-flag/10')
+      .set('token', userToken)
+      .end((err, res) => {
+        res.body.status.should.be.equal(404);
+        res.body.error.should.be.equal('Incident not found');
+      });
+    done();
+  });
 });

@@ -59,5 +59,21 @@ class incidentController {
       message: 'Yu do not have any incident records yet',
     });
   }
+
+  static async viewSpecific(req, res) {
+    const incidentId = parseInt(req.params.incidentid);
+    const findIncident = await conn.query(incidentQuery.findSpecific, [incidentId]);
+    if (findIncident.rowCount > 0) {
+      return res.status(200).json({
+        status: 200,
+        message: 'Article found',
+        data: findIncident.rows[0],
+      });
+    }
+    return res.status(404).json({
+      status: 404,
+      error: 'Incident not found',
+    });
+  }
 }
 export default incidentController;
