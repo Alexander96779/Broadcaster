@@ -1,9 +1,13 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../app';
+import auth from '../helpers/authanticate';
 
 chai.use(chaiHttp);
 chai.should();
+
+const user1 = 'User';
+const user2 = 'Admin';
 
 const incident1 = {
   title: 'Job Corruption',
@@ -25,12 +29,15 @@ const incident2 = {
   comment: 'Would be very helpful',
 };
 
+const userToken = auth.genererateToken(1, user1);
+const adminToken = auth.genererateToken(2, user2);
+
 describe('Incident tests', () => {
   // ========== CREATE INCIDENT TESTS ===============
   it('should be able to create incident if user', (done) => {
     chai.request(app)
       .post('/api/v2/incident')
-      .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjIsInR5cGUiOiJVc2VyIiwiaWF0IjoxNTc1NDA1MDk2fQ.f1UpQJyWRYTMANkCdWtOE_ENgbOpYwg787Dijt_lRb0')
+      .set('token', userToken)
       .send(incident1)
       .end((err, res) => {
         res.body.status.should.be.equal(201);
@@ -40,7 +47,7 @@ describe('Incident tests', () => {
   it('should not be able to create incident if not user', (done) => {
     chai.request(app)
       .post('/api/v2/incident')
-      .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEsInR5cGUiOiJBZG1pbiIsImlhdCI6MTU3NTQwNzEyMX0.1yVOI21sgKXJwvJp3F2OiXaePOrMUm6NellrYLYAS1o')
+      .set('token', adminToken)
       .send(incident1)
       .end((err, res) => {
         res.body.status.should.be.equal(401);
@@ -51,10 +58,20 @@ describe('Incident tests', () => {
   it('should not be able to create incident, if validation errors', (done) => {
     chai.request(app)
       .post('/api/v2/incident')
-      .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjIsInR5cGUiOiJVc2VyIiwiaWF0IjoxNTc1NDA1MDk2fQ.f1UpQJyWRYTMANkCdWtOE_ENgbOpYwg787Dijt_lRb0')
+      .set('token', userToken)
       .send(incident2)
       .end((err, res) => {
         res.body.status.should.be.equal(400);
+      });
+    done();
+  });
+  // =========== VIEW ALL TESTS ============
+  it('should be able to view all records', (done) => {
+    chai.request(app)
+      .get('/api/v2/red-flags')
+      .set('token', userToken)
+      .end((err, res) => {
+        res.body.status.should.be.equal(200);
       });
     done();
   });

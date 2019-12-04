@@ -45,5 +45,19 @@ class incidentController {
       error: 'Only users are allowed to creat incidents',
     });
   }
+
+  static async viewAll(req, res) {
+    const all = await conn.query(incidentQuery.findAll);
+    if (all.rowCount > 0) {
+      return res.status(200).json({
+        status: 200,
+        incidents: all.rows,
+      });
+    }
+    return res.status(200).json({
+      status: 200,
+      message: 'Yu do not have any incident records yet',
+    });
+  }
 }
 export default incidentController;

@@ -87,4 +87,13 @@ describe('User tests', () => {
       });
     done();
   });
+  it('should not be able to sign in if validation errors', (done) => {
+    chai.request(app)
+      .post('/api/v2/signin')
+      .send({ password: user1.password })
+      .end((err, res) => {
+        res.body.status.should.be.equal(400);
+      });
+    done();
+  });
 });
