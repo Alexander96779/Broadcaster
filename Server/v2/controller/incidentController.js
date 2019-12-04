@@ -75,5 +75,22 @@ class incidentController {
       error: 'Incident not found',
     });
   }
+
+  static async deleteIncident(req, res) {
+    const incidentId = parseInt(req.params.incidentid);
+    const userId = req.user.userid;
+    const findIncident = await conn.query(incidentQuery.findOneToDelete, [incidentId]);
+    if (findIncident.rowCount > 0 && findIncident.rows[0].createdby === userId) {
+      await conn.query(incidentQuery.deleteIncident, [incidentId]);
+      return res.status(200).json({
+        status: 200,
+        message: 'Incident well deleted',
+      });
+    }
+    return res.status(403).json({
+      status: 403,
+      error: 'Incident not found or it does not belong to you',
+    });
+  }
 }
 export default incidentController;

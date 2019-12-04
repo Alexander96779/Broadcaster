@@ -88,11 +88,32 @@ describe('Incident tests', () => {
   });
   it('should not be able to view specific if not found', (done) => {
     chai.request(app)
-      .get('/api/v2/red-flag/10')
+      .get('/api/v2/red-flag/100')
       .set('token', userToken)
       .end((err, res) => {
         res.body.status.should.be.equal(404);
         res.body.error.should.be.equal('Incident not found');
+      });
+    done();
+  });
+  // =========== DELETE INCIDENT TESTS ==========
+  it('should be able to delete if created by', (done) => {
+    chai.request(app)
+      .delete('/api/v2/red-flag/Delete/1')
+      .set('token', userToken)
+      .end((err, res) => {
+        res.body.status.should.be.equal(200);
+        res.body.message.should.be.equal('Incident well deleted');
+      });
+    done();
+  });
+  it('should not be able to delete if not found or not created by', (done) => {
+    chai.request(app)
+      .delete('/api/v2/red-flag/Delete/10')
+      .set('token', userToken)
+      .end((err, res) => {
+        res.body.status.should.be.equal(403);
+        res.body.error.should.be.equal('Incident not found or it does not belong to you');
       });
     done();
   });
