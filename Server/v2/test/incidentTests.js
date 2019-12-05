@@ -1,10 +1,10 @@
-import chai from 'chai';
+import Chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../app';
 import auth from '../helpers/authanticate';
 
-chai.use(chaiHttp);
-chai.should();
+Chai.use(chaiHttp);
+Chai.should();
 
 const user1 = 'User';
 const user2 = 'Admin';
@@ -30,91 +30,221 @@ const incident2 = {
 };
 
 const userToken = auth.genererateToken(1, user1);
-const adminToken = auth.genererateToken(2, user2);
+const adminToken = auth.genererateToken(20, user2);
 
 describe('Incident tests', () => {
   // ========== CREATE INCIDENT TESTS ===============
   it('should be able to create incident if user', (done) => {
-    chai.request(app)
+    Chai.request(app)
       .post('/api/v2/incident')
       .set('token', userToken)
       .send(incident1)
       .end((err, res) => {
-        res.body.status.should.be.equal(201);
+        res.should.have.status(201);
+        res.body.data.should.have.property('title', 'Job Corruption');
+        res.body.data.should.have.property('type', 'Red flag');
+        done();
       });
-    done();
   });
   it('should not be able to create incident if not user', (done) => {
-    chai.request(app)
+    Chai.request(app)
       .post('/api/v2/incident')
       .set('token', adminToken)
       .send(incident1)
       .end((err, res) => {
-        res.body.status.should.be.equal(401);
-        res.body.error.should.be.equal('Only users are allowed to creat incidents');
+        res.should.have.status(401);
+        res.body.should.have.property(
+          'error',
+          'Only users are allowed to create incidents',
+        );
+        done();
       });
-    done();
   });
   it('should not be able to create incident, if validation errors', (done) => {
-    chai.request(app)
+    Chai.request(app)
       .post('/api/v2/incident')
       .set('token', userToken)
       .send(incident2)
       .end((err, res) => {
-        res.body.status.should.be.equal(400);
+        res.should.have.status(400);
+        res.body.should.have.property('error');
+        done();
+      });
+  });
+  // =========== VIEW ALL TESTS ============
+  it('should be able to view all records if admin', (done) => {
+    Chai.request(app)
+      .get('/api/v2/red-flags')
+      .set('token', adminToken)
+      .end((err, res) => {
+        res.should.have.status(200);
       });
     done();
   });
-  // =========== VIEW ALL TESTS ============
-  it('should be able to view all records', (done) => {
-    chai.request(app)
+  it('should not be able to view all if not admin', (done) => {
+    Chai.request(app)
       .get('/api/v2/red-flags')
       .set('token', userToken)
       .end((err, res) => {
-        res.body.status.should.be.equal(200);
+        res.should.have.status(401);
+        res.body.should.have.property('error', 'Unauthorized access');
       });
     done();
   });
   // ======== VIEW SPECIFIC TESTS ==============
-  it('should be able to view specific incident', (done) => {
-    chai.request(app)
-      .get('/api/v2/red-flag/1')
-      .set('token', userToken)
+  it('should be able to view specific incident if created by', (done) => {
+    Chai.request(app)
+      .get(`/api/v2/red-flag/${1}`)
+      .set('token', `${userToken}`)
       .end((err, res) => {
-        res.body.status.should.be.equal(200);
-        res.body.message.should.be.equal('Article found');
+        res.should.have.status(200);
+        res.body.should.have.property('message', 'Incident found');
+        res.body.data.should.have.property('incidentid', 1);
+        res.body.data.should.have.property('title', 'Job Corruption');
+        res.body.data.should.have.property('type', 'Red flag');
+        done();
       });
-    done();
   });
   it('should not be able to view specific if not found', (done) => {
-    chai.request(app)
-      .get('/api/v2/red-flag/100')
-      .set('token', userToken)
+    Chai.request(app)
+      .get(`/api/v2/red-flag/${20}`)
+      .set('token', `${userToken}`)
       .end((err, res) => {
-        res.body.status.should.be.equal(404);
-        res.body.error.should.be.equal('Incident not found');
+        res.should.have.status(404);
+        res.body.should.have.property('error', 'Incident not found');
+        done();
       });
-    done();
+  });
+  it('should not be able to view specific if not created by', (done) => {
+    Chai.request(app)
+      .get(`/api/v2/red-flag/${1}`)
+      .set('token', adminToken)
+      .end((err, res) => {
+        res.should.have.status(401);
+        res.body.should.have.property('error', 'Unauthorized access');
+        done();
+      });
+  });
+  // ============ UPDATE LOCATION TESTS ========
+  it('should be able to update location if created by', (done) => {
+    Chai.request(app)
+      .patch('/api/v2/red-flag/Location/1')
+      .set('token', userToken)
+      .send({ location: 'Rubavu' })
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.have.property('message', 'Location well updated');
+        done();
+      });
+  });
+  it('should not be able to update location if missing info', (done) => {
+    Chai.request(app)
+      .patch('/api/v2/red-flag/Location/1')
+      .set('token', userToken)
+      .send()
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.have.property('error');
+        done();
+      });
+  });
+  it('should not be able to update location if not created by', (done) => {
+    Chai.request(app)
+      .patch('/api/v2/red-flag/Location/1')
+      .set('token', adminToken)
+      .send({ location: 'Rubavu' })
+      .end((err, res) => {
+        res.should.have.status(401);
+        res.body.should.have.property('error', 'Unauthorized access');
+        done();
+      });
+  });
+  it('should not be able to update location if not found', (done) => {
+    Chai.request(app)
+      .patch('/api/v2/red-flag/Location/10')
+      .set('token', userToken)
+      .send({ location: 'Rubavu' })
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.have.property('error', 'Incident not found');
+        done();
+      });
+  });
+  // ============ UPDATE COMMENT TESTS ========
+  it('should be able to update comment if created by', (done) => {
+    Chai.request(app)
+      .patch('/api/v2/red-flag/Comment/1')
+      .set('token', userToken)
+      .send({ comment: 'Thanks yay' })
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.have.property('message', 'Comment well updated');
+        done();
+      });
+  });
+  it('should not be able to update comment if missing info', (done) => {
+    Chai.request(app)
+      .patch('/api/v2/red-flag/Comment/1')
+      .set('token', userToken)
+      .send()
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.have.property('error');
+        done();
+      });
+  });
+  it('should not be able to update comment if not created by', (done) => {
+    Chai.request(app)
+      .patch('/api/v2/red-flag/Comment/1')
+      .set('token', adminToken)
+      .send({ comment: 'Thanks yay' })
+      .end((err, res) => {
+        res.should.have.status(401);
+        res.body.should.have.property('error', 'Unauthorized access');
+        done();
+      });
+  });
+  it('should not be able to update comment if not found', (done) => {
+    Chai.request(app)
+      .patch('/api/v2/red-flag/Comment/10')
+      .set('token', userToken)
+      .send({ comment: 'Thanks yay' })
+      .end((err, res) => {
+        console.log(res.body);
+        res.should.have.status(404);
+        res.body.should.have.property('error', 'Incident not found');
+        done();
+      });
   });
   // =========== DELETE INCIDENT TESTS ==========
-  it('should be able to delete if created by', (done) => {
-    chai.request(app)
-      .delete('/api/v2/red-flag/Delete/1')
-      .set('token', userToken)
+  it('should not be able to delete if not created by', (done) => {
+    Chai.request(app)
+      .delete(`/api/v2/red-flag/Delete/${1}`)
+      .set('token', adminToken)
       .end((err, res) => {
-        res.body.status.should.be.equal(200);
-        res.body.message.should.be.equal('Incident well deleted');
+        res.should.have.status(401);
+        res.body.should.have.property('error', 'Unauthorized access');
+        done();
       });
-    done();
   });
-  it('should not be able to delete if not found or not created by', (done) => {
-    chai.request(app)
-      .delete('/api/v2/red-flag/Delete/10')
+  it('should be able to delete if created by', (done) => {
+    Chai.request(app)
+      .delete(`/api/v2/red-flag/Delete/${1}`)
       .set('token', userToken)
       .end((err, res) => {
-        res.body.status.should.be.equal(403);
-        res.body.error.should.be.equal('Incident not found or it does not belong to you');
+        res.should.have.status(200);
+        res.body.should.have.property('message', 'Incident well deleted');
+        done();
       });
-    done();
+  });
+  it('should not be able to delete if not found', (done) => {
+    Chai.request(app)
+      .delete('/api/v2/red-flag/Delete/20')
+      .set('token', userToken)
+      .end((err, res) => {
+        res.should.have.status(403);
+        res.body.should.have.property('error', 'Incident not found');
+        done();
+      });
   });
 });
