@@ -4,8 +4,7 @@ import query from './query';
 const createTables = async () => {
   const createUserTable = query.userTable;
   const createIncidentTable = query.incidentTable;
-  const createCommentTable = query.commentsTable;
-  const tables = `${createUserTable}; ${createIncidentTable}; ${createCommentTable}`;
+  const tables = `${createUserTable}; ${createIncidentTable}`;
 
   await connection.query(tables);
 };

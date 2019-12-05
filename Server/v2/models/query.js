@@ -23,18 +23,8 @@ const incidentTable = `
                         createdBy SERIAL,
                         foreign key(createdBy) REFERENCES users ON DELETE CASCADE)`;
 
-const commentsTable = `
-                CREATE TABLE IF NOT EXISTS comments (
-                                commentId SERIAL PRIMARY KEY,
-                                comment text,
-                                commentedOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                                commentedBy SERIAL,
-                                incidentCommented SERIAL,
-                                foreign key(commentedBy) REFERENCES users,
-                                foreign key(incidentCommented) REFERENCES incidents ON DELETE CASCADE)`;
-
 const deleteTable = 'DROP TABLE IF EXISTS users, incidents, comments CASCADE;';
 
 export default {
-  userTable, incidentTable, commentsTable, deleteTable,
+  userTable, incidentTable, deleteTable,
 };
