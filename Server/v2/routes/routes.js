@@ -13,4 +13,6 @@ app.post('/api/v2/incident', auth, validation.incidentVal, incidentController.cr
 app.get('/api/v2/red-flags', auth, incidentController.viewAll);
 app.get('/api/v2/red-flag/:incidentid', auth, incidentController.viewSpecific);
 app.delete('/api/v2/red-flag/Delete/:incidentid', auth, incidentController.deleteIncident);
+app.patch('/api/v2/red-flag/Location/:incidentid', auth, validation.locationVal, incidentController.updateLocation);
+app.patch('/api/v2/red-flag/Comment/:incidentid', auth, validation.commentVal, incidentController.updateComment);
 export default app;

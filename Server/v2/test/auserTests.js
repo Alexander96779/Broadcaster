@@ -1,10 +1,11 @@
-import chai from 'chai';
+import Chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../app';
 
-chai.use(chaiHttp);
-chai.should();
-const user1 = {
+Chai.use(chaiHttp);
+Chai.should();
+
+const user = {
   firstname: 'Nyampinga',
   lastname: 'Espe',
   email: 'nyaespe@gmail.com',
@@ -14,6 +15,7 @@ const user1 = {
   username: 'Espe',
   type: 'User',
 };
+
 
 const user2 = {
   firstname: 'Nyampinga',
@@ -25,75 +27,85 @@ const user2 = {
   type: 'User',
 };
 
-describe('User tests', () => {
-  // ========== SIGN UP TESTS ===============
-  it('should be able to sign up user', (done) => {
-    chai.request(app)
+describe('User sign up test', () => {
+  // ============= SIGN UP TESTS ======
+  it('should be able to sign up', done => {
+    Chai.request(app)
       .post('/api/v2/signup')
-      .send(user1)
+      .send(user)
       .end((err, res) => {
-        res.body.status.should.be.equal(201);
-        res.body.message.should.be.equal('User created successfully!');
+        res.should.have.status(201);
+        res.body.should.have.property('message', 'User created successfully!');
+        res.body.should.have.property('token');
+        res.body.data.should.have.property('firstname', 'Nyampinga');
+        res.body.data.should.have.property('lastname', 'Espe');
+        res.body.data.should.have.property('email', 'nyaespe@gmail.com');
+        done();
       });
-    done();
   });
-  it('should not be able to sign up if email exists', (done) => {
-    chai.request(app)
+  it('should not be able to sign up if email exists', done => {
+    Chai.request(app)
       .post('/api/v2/signup')
-      .send(user1)
+      .send(user)
       .end((err, res) => {
-        res.body.status.should.be.equal(409);
-        res.body.error.should.be.equal('Email already exists!');
+        res.should.have.status(409);
+        res.body.should.have.property('error', 'Email already exists!');
+        done();
       });
-    done();
   });
-  it('should not be able to sign up if there are missing info', (done) => {
-    chai.request(app)
+  it('should not be able to sign up if there are validation errors', done => {
+    Chai.request(app)
       .post('/api/v2/signup')
       .send(user2)
       .end((err, res) => {
-        res.body.status.should.be.equal(400);
+        res.should.have.status(400);
+        res.body.should.have.property('error');
+        done();
       });
-    done();
   });
-  // =================== SIGN IN TESTS ============
-  it('should be able to sign in If has an account', (done) => {
-    chai.request(app)
+  // ================= SIGN IN TESTS =======
+  it('should be able to sign in, if has an account', done => {
+    Chai.request(app)
       .post('/api/v2/signin')
-      .send({ email: user1.email, password: user1.password })
+      .send({ email: user.email, password: user.password })
       .end((err, res) => {
-        res.body.status.should.be.equal(200);
-        res.body.message.should.be.equal('User is successfully signed in');
+        res.should.have.status(200);
+        res.body.should.have.property('message', 'User is successfully signed in');
+        res.body.should.have.property('token');
+        res.body.data.should.have.property('firstname', 'Nyampinga');
+        res.body.data.should.have.property('lastname', 'Espe');
+        res.body.data.should.have.property('gender', 'female');
+        done();
       });
-    done();
   });
-  it('should not be able to sign in if wrong email or password', (done) => {
-    chai.request(app)
+  it('should not be able to sign in if wrong email or password', done => {
+    Chai.request(app)
       .post('/api/v2/signin')
-      .send({ email: user1.email, password: 'shvsdhjds' })
+      .send({ email: user.email, password: 'sdvdsgjk' })
       .end((err, res) => {
-        res.body.status.should.be.equal(400);
-        res.body.error.should.be.equal('Wrong email or password');
+        res.should.have.status(400);
+        res.body.should.have.property('error', 'Wrong email or password');
+        done();
       });
-    done();
   });
-  it('should not be able to sign in if account does not exist', (done) => {
-    chai.request(app)
+  it('should not be able to sign in if does not have an account', done => {
+    Chai.request(app)
       .post('/api/v2/signin')
       .send({ email: user2.email, password: user2.password })
       .end((err, res) => {
-        res.body.status.should.be.equal(404);
-        res.body.error.should.be.equal('User not found, create account first');
+        res.should.have.status(404);
+        res.body.should.have.property('error', 'Invalid credentials');
+        done();
       });
-    done();
   });
-  it('should not be able to sign in if validation errors', (done) => {
-    chai.request(app)
+  it('should not be able to sign in if validation errors', done => {
+    Chai.request(app)
       .post('/api/v2/signin')
-      .send({ password: user1.password })
+      .send({ email: user.email })
       .end((err, res) => {
-        res.body.status.should.be.equal(400);
+        res.should.have.status(400);
+        res.body.should.have.property('error');
+        done();
       });
-    done();
   });
 });
