@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon --require @babel/register ./Server/app.js",
-    "start": "npm run createTables && node --require @babel/polyfill --require @babel/register ./Server/app.js",
+    "start": "node --require @babel/polyfill --require @babel/register ./Server/app.js",
     "test": "cross-env NODE_ENV=testing npm run deleteTables && cross-env NODE_ENV=testing npm run createTables && cross-env NODE_ENV=testing nyc --reporter=html --reporter=text --require @babel/polyfill --require @babel/register  mocha Server/v2/test/*.js --timeout 10000 --exit",
     "coveralls": "nyc report --reporter=text-lcov | coveralls ",
     "createTables": "node --require @babel/polyfill --require @babel/register Server/v2/models/createTable.js",

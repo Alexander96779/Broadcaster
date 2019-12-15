@@ -210,7 +210,6 @@ describe('Incident tests', () => {
       .set('token', userToken)
       .send({ comment: 'Thanks yay' })
       .end((err, res) => {
-        console.log(res.body);
         res.should.have.status(404);
         res.body.should.have.property('error', 'Incident not found');
         done();
