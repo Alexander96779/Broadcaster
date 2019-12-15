@@ -44,7 +44,7 @@ class validation {
       body: joi.string().required(),
       type: joi.string().valid('Red flag', 'Intervention').required(),
       location: joi.string().required(),
-      status: joi.string().valid('draft', 'under investigation', 'resolved').required(),
+      status: joi.string().valid('draft', 'under investigation', 'rejected').required(),
       images: joi.string().required(),
       videos: joi.string().required(),
       comment: joi.string().required(),
@@ -76,6 +76,20 @@ class validation {
   static commentVal(req, res, next) {
     const Schema = joi.object({
       comment: joi.string().min(5).required(),
+    });
+    const { error } = Schema.validate(req.body);
+    if (error) {
+      return res.status(400).json({
+        status: 400,
+        error: error.details[0].message.replace(/"/g, ''),
+      });
+    }
+    next();
+  }
+
+  static statusVal(req, res, next) {
+    const Schema = joi.object({
+      status: joi.string().valid('draft', 'under investigation', 'rejected').required(),
     });
     const { error } = Schema.validate(req.body);
     if (error) {
