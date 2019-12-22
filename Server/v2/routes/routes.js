@@ -17,4 +17,5 @@ app.delete('/api/v2/red-flag/Delete/:incidentid', auth, incidentController.delet
 app.patch('/api/v2/red-flag/Location/:incidentid', auth, validation.locationVal, incidentController.updateLocation);
 app.patch('/api/v2/red-flag/Comment/:incidentid', auth, validation.commentVal, incidentController.updateComment);
 app.patch('/api/v2/red-flag/Status/:incidentid', auth, validation.statusVal, adminController.acceptFlag);
+app.patch('/api/v2/red-flag/Reject/:incidentid', auth, validation.rejectVal, adminController.rejectFlag);
 export default app;
