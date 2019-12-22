@@ -70,4 +70,38 @@ describe('Admin Tests', () => {
         done();
       });
   });
+  // ================ ADMIN REJECT INCIDENT TESTS =============
+  it('should be able to reject if admin', (done) => {
+    Chai.request(app)
+      .patch('/api/v2/red-flag/Reject/2')
+      .set('token', adminToken)
+      .send({ status: 'rejected' })
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.have.property('message', 'Incident is rejected');
+        done();
+      });
+  });
+  it('should not be able to reject if it does not exist', (done) => {
+    Chai.request(app)
+      .patch('/api/v2/red-flag/Reject/20')
+      .set('token', adminToken)
+      .send({ status: 'rejected' })
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.have.property('error', 'Sorry, Incident not found');
+        done();
+      });
+  });
+  it('should not be able to reject if not admin', (done) => {
+    Chai.request(app)
+      .patch('/api/v2/red-flag/Reject/1')
+      .set('token', userToken)
+      .send({ status: 'rejected' })
+      .end((err, res) => {
+        res.should.have.status(403);
+        res.body.should.have.property('error', 'Forbidden route');
+        done();
+      });
+  });
 });
